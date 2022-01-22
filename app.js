@@ -10,10 +10,9 @@ const app = express();
 app.use(middleware.CORS);
 app.use(express.json());
 
-
-
 app.use('auth', controllers.userscontroller);
 app.use(middleware.validateSession);
+app.use('/posts', controllers.postscontroller);
 
 try {
     dbConnection
