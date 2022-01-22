@@ -1,14 +1,14 @@
 {
   "name": "BakerHelper",
   "version": "1.0.0",
-  "description": "red project server",
+  "description": "database associations",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
   },
-  "author": "ZSM",
+  "author": "RMG",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,6 +18,6 @@
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.13.0"
+    "sequelize": "^6.14.0"
   }
 }
