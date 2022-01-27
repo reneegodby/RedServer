@@ -5,10 +5,11 @@ const jwt = require('jsonwebtoken');
 const { UniqueConstraintError } = require('sequelize/lib/errors');
 
 router.post('/signup', async (req, res) => {
-    const { username, password} = req.body.user;
+    const { email, password, role} = req.body.user;
     try{
-        await models.UsersModel.create({
-            username: username,
+        await models.Users.create({
+            role: role,
+            email: email,
             password: bcrypt.hashSync(password, 10)
         })
         .then(
@@ -24,7 +25,7 @@ router.post('/signup', async (req, res) => {
     } catch(err){
         if (err instanceof UniqueConstraintError){
             res.status(409).json({
-                error: `Username already in use`
+                error: `Email already in use`
             });
         } else{
             res.status(500).json({
@@ -35,12 +36,14 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', async(req, res) => {
-    const { username, password} = req.body.user;
+    const {email, password, role} = req.body.user;
 
     try {
-        await models.UsersModel.findOne({
+        await models.Users.findOne({
             where: {
-                username: username
+                role: role,
+                email: email,
+                password: bcrypt.hashSync(password, 10)
             }
         })
         .then(
@@ -76,13 +79,13 @@ router.post('/login', async(req, res) => {
 
 router.get('/userinfo', async(req, res) => {
     try{
-        await models.UsersModel.findAll({
+        await models.Users.findAll({
             include: [
                 {
-                    model: models.PostsModel,
+                    model: models.Orders,
                     include: [
                         {
-                            model: models.CommentsModel
+                            model: models.Clients
                         }
                     ]
                 }

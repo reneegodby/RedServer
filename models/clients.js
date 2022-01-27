@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-const Clients = db.define("comments", {
+const Clients = db.define("clients", {
   clientId: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -9,21 +9,25 @@ const Clients = db.define("comments", {
     allowNull: false,
   },
   firstName: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     required: true,
   },
   lastName: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     required: true,
   },
   phoneNumber: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     required: true,
   },
   address: {
     type: DataTypes.STRING,
     required: true,
-  }
+  },
+  notes: {
+    type: DataTypes.STRING(2000),
+    required: false,
+  },
 });
 
 module.exports = Clients;
