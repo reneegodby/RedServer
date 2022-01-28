@@ -1,19 +1,24 @@
-const router = require('express').Router();
+const Express = require("express");
+const router = Express.Router();
 const { models } = require('../models');
+let validateJWT = require("../middleware/validate-session");
 
-router.post('/client', async (req, res) => {
-    const {content, postId} = req.body.comment;
+router.post('/client', validateJWT, async (req, res) => {
+    const {firstName,lastName, phoneNumber, address, notes } = req.body.clients;
 
     try {
         await models.Clients.create({
-            content: content,
-            postId: postId,
-            userId: req.user.id
+            // clientId: clientId,
+            firstName,
+            lastName,
+            phoneNumber,
+            address,
+            notes 
         })
         .then(
-            comment => {
+            post => {
                 res.status(201).json({
-                    comment: comment,
+                    post: post,
                     message: 'client created'
                 });
             }
@@ -24,5 +29,27 @@ router.post('/client', async (req, res) => {
         });
     };
 });
+
+// router.delete("/delete/:clientId", validateJWT, async (req, res) => {
+//     const clientId = req.params.clientId;
+//     const { clientId } = req.client;
+//     const query = {
+//         where: {
+//             clientId: clientId,
+            
+//         }
+//     };
+//     try {
+//         const deleteLog = await LogModel.destroy(query);
+//         res.status(200).json({
+//             message: `${deleteLog} Logs successfully deleted!`,
+//             query: query
+//         });
+//     } catch (err) {
+//         res.status(500).json({ error: err });
+//         message = "Error deleting log";
+//     }
+// }
+// );
 
 module.exports = router;

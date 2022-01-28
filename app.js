@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/auth', controllers.userscontroller);
 app.use(middleware.validateSession);
+app.use('/orders', controllers.orderscontroller);
 
 // try {
 //     dbConnection
@@ -27,7 +28,7 @@ app.use(middleware.validateSession);
 //     console.log(err);
 // }
 dbConnection.authenticate()
-    .then(() => dbConnection.sync())
+    .then(() => dbConnection.sync(/*{force: true}*/))
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log(`[Server]: App is listening on ${process.env.PORT}.`)

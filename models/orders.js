@@ -14,7 +14,7 @@ const Orders = db.define("orders", {
     allowNull: true,
   },
   quantity: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   dueDate: {
@@ -24,6 +24,10 @@ const Orders = db.define("orders", {
   price: {
     type: DataTypes.INTEGER,
     required: true, 
+  },
+  notes: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   image: {
     type: DataTypes.STRING,
