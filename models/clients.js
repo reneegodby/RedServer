@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../db");
 
 const Clients = db.define("client", {
-  clientId: {
+  id: {
     type: DataTypes.UUID,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,

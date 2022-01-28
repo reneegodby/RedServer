@@ -11,7 +11,7 @@ router.post('/order',validateJWT, async (req, res) => {
     try{
         const setClientId = await models.Clients.findOne({
             where: {
-                id: clientClientId,
+                id: clientId,
                 userId: req.user.id
             }
         })
@@ -23,7 +23,7 @@ router.post('/order',validateJWT, async (req, res) => {
             price, 
             notes,
             image,
-            clientClientId: setClientId
+            clientClientId: setClientId.id
         })
         .then(
             post => {
