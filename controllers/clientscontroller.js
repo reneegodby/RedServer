@@ -4,7 +4,7 @@ const { models } = require('../models');
 let validateJWT = require("../middleware/validate-session");
 
 router.post('/client', validateJWT, async (req, res) => {
-    const {firstName,lastName, phoneNumber, address, notes } = req.body.clients;
+    const {firstName,lastName, phoneNumber, address, notes} = req.body.clients;
 
     try {
         await models.Clients.create({
@@ -13,7 +13,8 @@ router.post('/client', validateJWT, async (req, res) => {
             lastName,
             phoneNumber,
             address,
-            notes 
+            notes,
+            userId: req.user.id
         })
         .then(
             post => {

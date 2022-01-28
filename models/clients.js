@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-const Clients = db.define("clients", {
+const Clients = db.define("client", {
   clientId: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -17,7 +17,7 @@ const Clients = db.define("clients", {
     required: true,
   },
   phoneNumber: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     required: true,
   },
   address: {
