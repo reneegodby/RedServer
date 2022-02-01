@@ -7,7 +7,7 @@ let validateJWT = require("../middleware/validate-session");
 
 router.post('/order',validateJWT, async (req, res) => {
     const {typeOfOrder, quantity, dueDate, price,notes, image } = req.body.orders;
-    const {clientClientId} = req.body.orders;
+    const {clientId} = req.body.orders;
     try{
         const setClientId = await models.Clients.findOne({
             where: {
@@ -23,7 +23,7 @@ router.post('/order',validateJWT, async (req, res) => {
             price, 
             notes,
             image,
-            clientClientId: setClientId.id
+            clientId: setClientId.id
         })
         .then(
             post => {

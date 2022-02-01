@@ -73,29 +73,34 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/userinfo", async (req, res) => {
-  try {
-    await models.Users.findAll({
-      include: [
-        {
-          model: models.Orders,
-          include: [
-            {
-              model: models.Clients,
-            },
-          ],
-        },
-      ],
-    }).then((users) => {
-      res.status(200).json({
-        users: users,
-      });
-    });
-  } catch (err) {
-    res.status(500).json({
-      error: `Failed to retrieve users: ${err}`,
-    });
-  }
-});
+
 
 module.exports = router;
+
+
+
+
+// router.get("/userinfo", async (req, res) => {
+//   try {
+//     await models.Users.findAll({
+//       include: [
+//         {
+//           model: models.Orders,
+//           include: [
+//             {
+//               model: models.Clients,
+//             },
+//           ],
+//         },
+//       ],
+//     }).then((users) => {
+//       res.status(200).json({
+//         users: users,
+//       });
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       error: `Failed to retrieve users: ${err}`,
+//     });
+//   }
+// });
