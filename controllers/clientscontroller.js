@@ -45,7 +45,7 @@ router.delete("/delete/:clientId", validateJWT, async (req, res) => {
         }
     };
     try {
-        const deleteClient = await models.clients.destroy(query);
+        const deleteClient = await models.Clients.destroy(query);
         res.status(200).json({
             message: `${deleteClient} Client successfully deleted!`,
             query: query
