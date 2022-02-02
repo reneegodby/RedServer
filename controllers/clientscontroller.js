@@ -30,7 +30,7 @@ router.post("/client", validateJWT, async (req, res) => {
 
 router.delete("/delete/:clientId", validateJWT, async (req, res) => {
   const clientId = req.params.id;
-  const { id } = req.user;
+  const id  = req.user;
   const query = {
     where: {
       id: clientId,
