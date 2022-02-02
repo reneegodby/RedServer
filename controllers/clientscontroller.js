@@ -31,26 +31,63 @@ router.post('/client', validateJWT, async (req, res) => {
     };
 });
 
-// router.delete("/delete/:clientId", validateJWT, async (req, res) => {
-//     const clientId = req.params.clientId;
-//     const { clientId } = req.client;
+
+
+
+
+router.delete("/delete/:clientId", validateJWT, async (req, res) => {
+    const clientId = req.params.id;
+    const { id } = req.user;
+    const query = {
+        where: {
+            id: clientId,
+            userId: id
+        }
+    };
+    try {
+        const deleteClient = await models.clients.destroy(query);
+        res.status(200).json({
+            message: `${deleteClient} Client successfully deleted!`,
+            query: query
+        });
+    } catch (err) {
+        res.status(500).json({ error: err });
+        message = "Error deleting client";
+    }
+}
+);
+
+
+
+module.exports = router;
+
+// router.put("/update/:id", validateJWT, async (req, res) => {
+//     const {  } = req.body.client;// **these need to match our request**
+//     const logId = req.params.id;
+//     const { id } = req.user;
+
 //     const query = {
 //         where: {
-//             clientId: clientId,
-            
+//             id: logId,
+//             owner: id
 //         }
 //     };
+
+//     const updatedLog = {
+//         
+//     };
+//     console.log(updatedLog);
+
 //     try {
-//         const deleteLog = await LogModel.destroy(query);
+//         const update = await LogModel.update(updatedLog, query);
 //         res.status(200).json({
-//             message: `${deleteLog} Logs successfully deleted!`,
+//             message: `${update} Logs successfully updated!`,
+//             update: updatedLog,
 //             query: query
 //         });
 //     } catch (err) {
 //         res.status(500).json({ error: err });
-//         message = "Error deleting log";
+//         message = "Error updating log";
 //     }
 // }
 // );
-
-module.exports = router;

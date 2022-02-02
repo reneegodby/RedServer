@@ -80,7 +80,7 @@ module.exports = router;
 
 
 
-// router.get("/userinfo", async (req, res) => {
+// router.get("/", async (req, res) => {
 //   try {
 //     await models.Users.findAll({
 //       include: [

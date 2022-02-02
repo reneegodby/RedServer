@@ -25,6 +25,6 @@ Server:
 - [1/27/22]: created orders controller
 - [1/27/22]: created clients controller
 - [1/27/22]: tested Postman login/sign up/create order/create client
-- []: created 
-- []: created 
+- [1/31/22]: deployed to Heroku 
+- [2/01/22]: created delete endpoints
 
