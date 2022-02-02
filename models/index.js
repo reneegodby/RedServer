@@ -8,9 +8,16 @@ const Clients = require("./clients"); //Clients can have multiple orders
 Users.hasMany(Clients, {
     onDelete: "CASCADE",
 });
-Clients.belongsTo(Users);
-Clients.hasMany(Orders);
-Orders.belongsTo(Clients);
+Clients.belongsTo(Users, {
+  onDelete: "CASCADE",
+});
+Clients.hasMany(Orders, {
+  onDelete: "CASCADE",
+}
+  );
+Orders.belongsTo(Clients, {
+  onDelete: "CASCADE",
+});
 
 module.exports = {
   dbConnection: db,

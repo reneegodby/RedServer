@@ -39,6 +39,30 @@ router.post('/order',validateJWT, async (req, res) => {
             error: `Failed to create order: ${err}`
         });
     };
+
 });
+router.delete("/delete/:orderId", validateJWT, async (req, res) => {
+    const orderId = req.params.orderId;
+    const {id} = req.order;
+    const query = {
+        where: {
+          orderId: id,
+          id: orderId
+        },
+      };
+  
+    // const id = JSON.parse(JSON.stringify(query)).clientId;
+   
+    try {
+      const deleteOrder = await models.Orders.destroy(query);
+      res.status(200).json({
+        message: `${deleteOrder} Order successfully deleted!`,
+        query: query,
+      });
+    } catch (err) {
+      res.status(500).json({ error: err });
+      message = "Error deleting order";
+    }
+  });
 
 module.exports = router;
