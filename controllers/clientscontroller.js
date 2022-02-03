@@ -2,7 +2,9 @@ const Express = require("express");
 const router = Express.Router();
 const { models } = require("../models");
 let validateJWT = require("../middleware/validate-session");
+const { add } = require("nodemon/lib/rules");
 
+//CREATE CLIENTS
 router.post("/client", validateJWT, async (req, res) => {
   const { firstName, lastName, phoneNumber, address, notes } = req.body.clients;
 
@@ -28,6 +30,43 @@ router.post("/client", validateJWT, async (req, res) => {
   }
 });
 
+//UPDATE CLIENT
+router.put("/update/:clientId", validateJWT, async (req, res) => {
+  const { firstName, lastName, phoneNumber, address, notes } = req.body.clients;
+  const clientId = req.params.clientId;
+  const {id}  = req.user;
+  const query = {
+      where: {
+          id: clientId,
+          userId: id 
+      }
+  };
+  const updateClient = {
+      
+    firstName: firstName,
+    lastName: lastName,
+    phoneNumber: phoneNumber,
+    address: address,
+    notes: notes,
+    userId: id
+  };
+  console.log(updateClient);
+
+  try {
+      const update = await models.Clients.update(updateClient, query);
+      res.status(200).json({
+          message: `${update} Client successfully updated!`,
+          update: updateClient,
+          query: query
+      });
+  } catch (err) {
+      res.status(500).json({ error: err });
+      message = "Error updating client";
+  }
+}
+);
+
+//DELETE CLIENT
 router.delete("/delete/:clientId", validateJWT, async (req, res) => {
   const clientId = req.params.clientId;
   const {id}  = req.user;
@@ -51,33 +90,4 @@ router.delete("/delete/:clientId", validateJWT, async (req, res) => {
 
 module.exports = router;
 
-// router.put("/update/:id", validateJWT, async (req, res) => {
-//     const {  } = req.body.client;// **these need to match our request**
-//     const logId = req.params.id;
-//     const { id } = req.user;
 
-//     const query = {
-//         where: {
-//             id: logId,
-//             owner: id
-//         }
-//     };
-
-//     const updatedLog = {
-//
-//     };
-//     console.log(updatedLog);
-
-//     try {
-//         const update = await LogModel.update(updatedLog, query);
-//         res.status(200).json({
-//             message: `${update} Logs successfully updated!`,
-//             update: updatedLog,
-//             query: query
-//         });
-//     } catch (err) {
-//         res.status(500).json({ error: err });
-//         message = "Error updating log";
-//     }
-// }
-// );
