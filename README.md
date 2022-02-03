@@ -27,7 +27,7 @@ Server:
 - [1/27/22]: tested Postman login/sign up/create order/create client
 - [1/31/22]: deployed to Heroku 
 - [2/01/22]: created delete endpoints
-- [2/01/22]: created update endpoints
+- [2/02/22]: created update/get endpoints
+<!-- - [2/02/22]: created 
 - [2/01/22]: created 
-- [2/01/22]: created 
-- [2/01/22]: created 
+- [2/01/22]: created  -->

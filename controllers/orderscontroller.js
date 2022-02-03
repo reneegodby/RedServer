@@ -93,8 +93,22 @@ router.delete("/delete/:orderId", validateJWT, async (req, res) => {
   }
 });
 
-//GET ALL ORDERS
-
+//GET ALL ORDERS FOR SPECIFIC USER
+//!NOT WORKING YET
+router.get('/', validateJWT, async (req, res) => {
+  const { id } = req.user;
+  try {
+      const orders = await models.Orders.findAll({
+          where: {
+              userId: id
+          }
+      });
+      res.status(200).json(orders);
+          message `${orders} Orders successfully retrieved!`
+  } catch (err) {
+      res.status(500).json({ error: err });
+  }
+})
 
 
 

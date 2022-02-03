@@ -88,6 +88,22 @@ router.delete("/delete/:clientId", validateJWT, async (req, res) => {
   }
 });
 
+//GET ALL CLIENTS FOR SPECIFIC USER
+router.get('/', validateJWT, async (req, res) => {
+  const { id } = req.user;
+  try {
+      const clients = await models.Clients.findAll({
+          where: {
+              userId: id
+          }
+      });
+      res.status(200).json(clients);
+          message `${clients} Clients successfully retrieved!`
+  } catch (err) {
+      res.status(500).json({ error: err });
+  }
+})
+
 module.exports = router;
 
 
