@@ -22,6 +22,7 @@ router.post("/order", validateJWT, async (req, res) => {
       price,
       notes,
       image,
+      userId: req.user.id,
       clientId: setClientId.id,
     }).then((post) => {
       res.status(201).json({

@@ -33,6 +33,10 @@ const Orders = db.define("orders", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  }
 });
 
 module.exports = Orders;
