@@ -10,26 +10,15 @@ const app = express();
 app.use(middleware.CORS);
 app.use(express.json());
 
+
 app.use('/auth', controllers.userscontroller);
-app.use(middleware.validateSession);
 app.use('/orders', controllers.orderscontroller);
 app.use('/clients', controllers.clientscontroller);
-// try {
-//     dbConnection
-//         .authenticate()
-//         .then(async () => await dbConnection.sync( /* {force: true}*/ )) 
-//         .then(() => {
-//             app.listen(process.env.PORT, () => {
-//                 console.log(`[SERVER]: App is listening on ${process.env.PORT}`);
-//             });
-//         });
-// } catch (err) {
-//     console.log('[SERVER]: Server crashed');
-//     console.log(err);
-// }
+app.use(middleware.validateSession);
+
 dbConnection.authenticate()
-    // .then(() => dbConnection.sync())
-    .then(() => dbConnection.sync({force: true}))
+    .then(() => dbConnection.sync())
+    // .then(() => dbConnection.sync({force: true}))
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log(`[Server]: App is listening on ${process.env.PORT}.`)

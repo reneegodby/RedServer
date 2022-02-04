@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { models } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const validateJWT = require("../middleware/validate-session");
 const { UniqueConstraintError } = require("sequelize/lib/errors");
 
 router.post("/signup", async (req, res) => {
@@ -73,7 +74,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//ADMIN GETS ALL USERS
 
+router.get('/', validateJWT, async (req, res) => {
+  try {
+    const users = await models.Users.findAll({
+      where: {
+        role: 'user'
+      }
+    });
+
+    res.status(200).json(users);
+  } 
+  catch (error) {
+    res.status(500).json({
+      message: `Failed to fetch users: ${error}`
+    });
+  }
+})
 
 module.exports = router;
 
