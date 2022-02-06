@@ -9,8 +9,6 @@ const app = express();
 
 app.use(middleware.CORS);
 app.use(express.json());
-
-
 app.use('/auth', controllers.userscontroller);
 app.use('/orders', controllers.orderscontroller);
 app.use('/clients', controllers.clientscontroller);

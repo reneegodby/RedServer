@@ -28,6 +28,6 @@ Server:
 - [1/31/22]: deployed to Heroku 
 - [2/01/22]: created delete endpoints
 - [2/02/22]: created update/get endpoints
-<!-- - [2/02/22]: created 
-- [2/01/22]: created 
-- [2/01/22]: created  -->
+- [2/03/22]: created admin get all endpoint
+- [2/05/22]: tested all endpoints. Finished server
+
