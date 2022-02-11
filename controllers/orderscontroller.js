@@ -2,12 +2,14 @@ const Express = require("express");
 const router = Express.Router();
 const { models } = require("../models");
 let validateJWT = require("../middleware/validate-session");
+const Clients = require("../models/clients");
+
 
 //CREATE ORDER
-router.post("/order", validateJWT, async (req, res) => {
+router.post("/order/:id", validateJWT, async (req, res) => {
   const { typeOfOrder, quantity, dueDate, price, notes, image } =
     req.body.orders;
-  const { clientId } = req.body.orders;
+  const clientId = req.params.id;
   try {
     const setClientId = await models.Clients.findOne({
       where: {
@@ -95,14 +97,14 @@ router.delete("/delete/:orderId", validateJWT, async (req, res) => {
 });
 
 //GET ALL ORDERS FOR SPECIFIC USER
-//!NOT WORKING YET
+
 router.get('/', validateJWT, async (req, res) => {
   const { id } = req.user;
   try {
       const orders = await models.Orders.findAll({
           where: {
               userId: id
-          }
+          }, include: [{model: Clients}]
       });
       res.status(200).json(orders);
           message `${orders} Orders successfully retrieved!`

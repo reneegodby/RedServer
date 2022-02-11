@@ -38,7 +38,7 @@ router.post("/signup", async (req, res) => {
 
 //USER LOGIN
 router.post("/login", async (req, res) => {
-  const { email, password} = req.body.user;
+  const { email, password } = req.body.user;
 
   try {
     await models.Users.findOne({
@@ -78,27 +78,25 @@ router.post("/login", async (req, res) => {
 
 //ADMIN GETS ALL USERS
 
-router.get('/', validateJWT, async (req, res) => {
-  try {
-    const users = await models.Users.findAll({
-      where: {
-        role: 'user'
-      }
-    });
+router.get("/", validateJWT, async (req, res) => {
+  if (req.user.role === "admin") {
+    try {
+      const users = await models.Users.findAll({
+        where: {
+          role: "user",
+        },
+      });
 
-    res.status(200).json(users);
-  } 
-  catch (error) {
-    res.status(500).json({
-      message: `Failed to fetch users: ${error}`
-    });
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({
+        message: `Failed to fetch users: ${error}`,
+      });
+    }
   }
-})
+});
 
 module.exports = router;
-
-
-
 
 // router.get("/", async (req, res) => {
 //   try {
