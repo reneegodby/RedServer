@@ -30,4 +30,6 @@ Server:
 - [2/02/22]: created update/get endpoints
 - [2/03/22]: created admin get all endpoint
 - [2/05/22]: tested all endpoints. Finished server
+- [2/11/22]: added include: {model: Clients} to Order controller
+
 
