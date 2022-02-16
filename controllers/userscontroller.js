@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
             let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
               expiresIn: 60 * 60 * 24,
             });
-            res.json({
+            res.status(200).json({
               user: user,
               message: "logged in",
               sessionToken: `Bearer ${token}`,

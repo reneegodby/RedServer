@@ -34,42 +34,40 @@ router.post("/client", validateJWT, async (req, res) => {
 router.put("/update/:clientId", validateJWT, async (req, res) => {
   const { firstName, lastName, phoneNumber, address, notes } = req.body.clients;
   const clientId = req.params.clientId;
-  const {id}  = req.user;
+  const { id } = req.user;
   const query = {
-      where: {
-          id: clientId,
-          userId: id 
-      }
+    where: {
+      id: clientId,
+      userId: id,
+    },
   };
   const updateClient = {
-      
     firstName: firstName,
     lastName: lastName,
     phoneNumber: phoneNumber,
     address: address,
     notes: notes,
-    userId: id
+    userId: id,
   };
   console.log(updateClient);
 
   try {
-      const update = await models.Clients.update(updateClient, query);
-      res.status(200).json({
-          message: `${update} Client successfully updated!`,
-          update: updateClient,
-          query: query
-      });
+    const update = await models.Clients.update(updateClient, query);
+    res.status(200).json({
+      message: `${update} Client successfully updated!`,
+      update: updateClient,
+      query: query,
+    });
   } catch (err) {
-      res.status(500).json({ error: err });
-      message = "Error updating client";
+    res.status(500).json({ error: err });
+    message = "Error updating client";
   }
-}
-);
+});
 
 //DELETE CLIENT
 router.delete("/delete/:clientId", validateJWT, async (req, res) => {
   const clientId = req.params.clientId;
-  const {id}  = req.user;
+  const { id } = req.user;
   const query = {
     where: {
       id: clientId,
@@ -89,21 +87,19 @@ router.delete("/delete/:clientId", validateJWT, async (req, res) => {
 });
 
 //GET ALL CLIENTS FOR SPECIFIC USER
-router.get('/', validateJWT, async (req, res) => {
-  const { id } = req.user;
+router.get("/", validateJWT, async (req, res) => {
   try {
-      const clients = await models.Clients.findAll({
-          where: {
-              userId: id
-          }
-      });
-      res.status(200).json(clients);
-          message `${clients} Clients successfully retrieved!`
+    const { id } = req.user;
+    const clients = await models.Clients.findAll({
+      where: {
+        userId: id,
+      },
+    });
+    res.status(200).json(clients);
+    // message`${clients} Clients successfully retrieved!`;
   } catch (err) {
-      res.status(500).json({ error: err });
+    res.status(500).json({ error: err });
   }
-})
+});
 
 module.exports = router;
-
-
