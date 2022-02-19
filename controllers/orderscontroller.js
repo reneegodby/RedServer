@@ -67,7 +67,7 @@ router.put("/update/:orderId", validateJWT, async (req, res) => {
       query: query,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ error: err });
   }
 });
@@ -107,7 +107,7 @@ router.get("/", validateJWT, async (req, res) => {
     res.status(200).json(orders);
     // message`${orders} Orders successfully retrieved!`;
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ error: err });
   }
 });

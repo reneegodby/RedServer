@@ -1,15 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const cors = require("cors"); 
+const cors = require("cors");
 const dbConnection = require("./db");
 const controllers = require("./controllers");
 const middleware = require("./middleware");
 
-app.use(require("./middleware/headers"))
-// app.options("*", cors());
-app.use(cors())
-// app.use(middleware.CORS);
+app.use(require("./middleware/headers"));
+app.use(cors());
 app.use(express.json());
 app.use("/auth", controllers.userscontroller);
 app.use("/orders", controllers.orderscontroller);

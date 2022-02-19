@@ -97,28 +97,3 @@ router.get("/", validateJWT, async (req, res) => {
 });
 
 module.exports = router;
-
-// router.get("/", async (req, res) => {
-//   try {
-//     await models.Users.findAll({
-//       include: [
-//         {
-//           model: models.Orders,
-//           include: [
-//             {
-//               model: models.Clients,
-//             },
-//           ],
-//         },
-//       ],
-//     }).then((users) => {
-//       res.status(200).json({
-//         users: users,
-//       });
-//     });
-//   } catch (err) {
-//     res.status(500).json({
-//       error: `Failed to retrieve users: ${err}`,
-//     });
-//   }
-// });

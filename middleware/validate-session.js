@@ -25,7 +25,7 @@ const validateJWT = async (req, res, next) => {
           id: payload.id,
         },
       });
-    //   console.log("foundUser -->", foundUser);
+      //   console.log("foundUser -->", foundUser);
       if (foundUser) {
         req.user = foundUser;
         next();
