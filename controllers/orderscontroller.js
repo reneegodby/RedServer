@@ -105,8 +105,9 @@ router.get("/", validateJWT, async (req, res) => {
       include: [{ model: Clients }],
     });
     res.status(200).json(orders);
-    message`${orders} Orders successfully retrieved!`;
+    // message`${orders} Orders successfully retrieved!`;
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: err });
   }
 });

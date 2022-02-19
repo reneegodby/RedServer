@@ -6,6 +6,7 @@ const dbConnection = require("./db");
 const controllers = require("./controllers");
 const middleware = require("./middleware");
 
+app.use(require("./middleware/headers"))
 // app.options("*", cors());
 app.use(cors())
 // app.use(middleware.CORS);
